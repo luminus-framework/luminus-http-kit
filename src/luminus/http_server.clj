@@ -4,16 +4,19 @@
 
 (defonce http-server (atom nil))
 
-(defn start [handler init port]
+(defn start [{:keys [handler init port] :as opts}]
   (if @http-server
     (log/error "HTTP server is already running!")
-    (do
+    (try
       (init)
+      (log/info "HTTP server is starting on port " port)
       (reset! http-server
               (http-kit/run-server
-               app
-               {:port port}))
-      (log/info "server started on port:" (:port @http-server)))))
+               handler
+               (dissoc opts :handler :init)))
+      (log/info "server started on port:" port)
+      (catch Throwable t
+        (log/error t (str "server failed to start on port: " port))))))
 
 (defn stop [destroy]
   (when @http-server
