@@ -1,6 +1,6 @@
-# luminus-jetty
+# luminus-http-kit
 
-Jetty HTTP adapter for Luminus
+HTTP Kit adapter for Luminus
 
 ## License
 
