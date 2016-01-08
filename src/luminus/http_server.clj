@@ -9,14 +9,13 @@
     (log/error "HTTP server is already running!")
     (try
       (init)
-      (log/info "HTTP server is starting on port " port)
       (reset! http-server
               (http-kit/run-server
                handler
                (dissoc opts :handler :init)))
-      (log/info "server started on port:" port)
+      (log/info "server started on port" port)
       (catch Throwable t
-        (log/error t (str "server failed to start on port: " port))))))
+        (log/error t (str "server failed to start on port " port))))))
 
 (defn stop [destroy]
   (when @http-server
