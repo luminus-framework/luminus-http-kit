@@ -1,4 +1,4 @@
-(defproject luminus-http-kit "0.1.0"
+(defproject luminus-http-kit "0.1.1"
   :description "HTTP Kit adapter for Luminus"
   :url "https://github.com/luminus-framework/luminus-http-kit"
   :license {:name "Eclipse Public License"
