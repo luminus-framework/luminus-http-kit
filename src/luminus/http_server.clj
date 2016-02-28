@@ -2,20 +2,16 @@
   (:require [clojure.tools.logging :as log]
             [org.httpkit.server :as http-kit]))
 
-(defonce http-server (atom nil))
-
-(defn start [{:keys [handler init host port] :as opts}]
+(defn start [{:keys [handler host port] :as opts}]
   (try
-    (init)
-    (let [server (http-kit/run-server
-                   handler
-                   (dissoc opts :handler :init))]
-      (log/info "server started on" host "port" port)
-      server)
+    (log/info "starting HTTP server on port" port)
+    (http-kit/run-server
+      handler
+      (dissoc opts :handler :init))
     (catch Throwable t
-      (log/error t (str "server failed to start on" host "port" port)))))
+      (log/error t (str "server failed to start on" host "port" port))
+      (throw t))))
 
-(defn stop [http-server destroy]
-  (destroy)
+(defn stop [http-server]
   (http-server :timeout 100)
   (log/info "HTTP server stopped"))
