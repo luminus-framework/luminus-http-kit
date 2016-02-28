@@ -7,11 +7,11 @@
 (defn start [{:keys [handler init host port] :as opts}]
   (try
     (init)
-    (reset! http-server
-            (http-kit/run-server
-              handler
-              (dissoc opts :handler :init)))
-    (log/info "server started on" host "port" port)
+    (let [server (http-kit/run-server
+                   handler
+                   (dissoc opts :handler :init))]
+      (log/info "server started on" host "port" port)
+      server)
     (catch Throwable t
       (log/error t (str "server failed to start on" host "port" port)))))
 
