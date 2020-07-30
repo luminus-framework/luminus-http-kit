@@ -13,5 +13,5 @@
       (throw t))))
 
 (defn stop [http-server]
-  (http-server :timeout 100)
+  (@http-server :timeout 100)
   (log/info "HTTP server stopped"))
