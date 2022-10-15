@@ -1,0 +1,9 @@
+/target
+pom.xml
+/.lein-*
+profiles.clj
+/.env
+.nrepl-port
+/.clj-kondo/.cache/
+/.lsp/.cache/
+/.calva/output-window/
